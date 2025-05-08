@@ -1,0 +1,22 @@
+#docker compose file format version
+version: '3.8'
+
+services:
+  express-app:
+    build: . #Builds the image from the Dockerfile in the current directory 
+    container_name: express-app
+    restart: always
+    expose:
+      - 3000
+    depends_on:
+      - nginx
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nodejs.conf:/etc/nginx/conf.d/nodejs.conf
+
